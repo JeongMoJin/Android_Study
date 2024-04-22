@@ -1,34 +1,89 @@
 package kr.jeongmo.kotlin_code_layout
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
+import java.util.*
+import kotlin.collections.MutableList as MutableList
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var editText1 : EditText
+    lateinit var editText2 : EditText
+    lateinit var btnAdd : Button
+    lateinit var btnSub : Button
+    lateinit var btnMul : Button
+    lateinit var btnDiv : Button
+    lateinit var textResult : TextView
+
+    lateinit var num1 : String
+    lateinit var num2 : String
+    var result: Int? = null
+
+    // 숫자 버튼
+    val btnNums = ArrayList<Button>()
+    // 버튼의 id 값
+    var btnIds = arrayOf(R.id.BtnNum0, R.id.BtnNum1, R.id.BtnNum2, R.id.BtnNum3,R.id.BtnNum4,
+        R.id.BtnNum5,R.id.BtnNum6,R.id.BtnNum7, R.id.BtnNum8, R.id.BtnNum9)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
+        title = "테이블 레이아웃 계산기"
 
-        val baseLayout = LinearLayout(this)
-        baseLayout.orientation = LinearLayout.VERTICAL
-        baseLayout.setBackgroundColor(Color.rgb(0, 255, 0))
-        setContentView(baseLayout, params)
+        editText1 = findViewById(R.id.Edit1)
+        editText2 = findViewById(R.id.Edit2)
 
-        val btn = Button(this)
-        btn.text = "버튼입니다."
-        btn.setBackgroundColor(Color.MAGENTA)
-        baseLayout.addView(btn)
+        btnAdd = findViewById(R.id.BtnAdd)
+        btnSub = findViewById(R.id.BtnSub)
+        btnMul = findViewById(R.id.BtnMul)
+        btnDiv = findViewById(R.id.BtnDiv)
 
-        btn.setOnClickListener {
-            Toast.makeText(applicationContext, "코드로 생성한 코드입니다.", Toast.LENGTH_LONG).show()
+        textResult = findViewById(R.id.TextResult)
+
+        btnAdd.setOnClickListener {
+            num1 = editText1.text.toString()
+            num2 = editText2.text.toString()
+            result = num1.toInt() + num2.toInt()
+            textResult.text = "계산결과 : $result"
+        }
+        btnSub.setOnClickListener {
+            num1 = editText1.text.toString()
+            num2 = editText2.text.toString()
+            result = num1.toInt() - num2.toInt()
+            textResult.text = "계산결과 : $result"
+        }
+        btnMul.setOnClickListener {
+            num1 = editText1.text.toString()
+            num2 = editText2.text.toString()
+            result = num1.toInt() * num2.toInt()
+            textResult.text = "계산결과 : $result"
+        }
+        btnDiv.setOnClickListener {
+            num1 = editText1.text.toString()
+            num2 = editText2.text.toString()
+            result = num1.toInt() / num2.toInt()
+            textResult.text = "계산결과 : $result"
+        }
+
+        for (i in btnIds.indices) {
+            btnNums.add(i, findViewById(btnIds[i]))
+
+            // 포커스가 되어있는 에디트 텍스트에 버튼의 숫자를 결합. 문자열 결합
+            btnNums[i].setOnClickListener {
+                if (editText1.isFocused) {
+                    num1 = editText1.text.toString() + btnNums[i].text.toString()
+                    editText1.setText(num1)
+                } else if (editText2.isFocused) {
+                    num2 = editText2.text.toString() + btnNums[i].text.toString()
+                    editText2.setText(num2)
+                }else {
+                    Toast.makeText(applicationContext, "먼저 에디트텍스트를 선택하세요.", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }
