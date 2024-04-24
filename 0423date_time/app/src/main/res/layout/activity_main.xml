@@ -48,8 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <CalendarView
-                android:id="@+id/calendarView1"
+            <DatePicker
+                android:id="@+id/datePicker1"
                 android:layout_width="match_parent"
                 android:showWeekNumber="false"
                 android:layout_height="wrap_content"/>

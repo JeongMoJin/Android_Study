@@ -12,7 +12,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnStart : Button
     lateinit var rdoCal : RadioButton
     lateinit var rdoTime : RadioButton
-    lateinit var calendarView1 : CalendarView
+//    lateinit var calendarView1 : CalendarView
+    lateinit var datePicker1 : DatePicker
     lateinit var timePicker1 : TimePicker
     lateinit var btnEnd : Button
     lateinit var tvYear : TextView
@@ -43,7 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         // FrameLayout의 2개 위젯
         timePicker1 = findViewById(R.id.timePicker1)
-        calendarView1 = findViewById(R.id.calendarView1)
+        datePicker1 = findViewById(R.id.datePicker1)
+//        calendarView1 = findViewById(R.id.calendarView1)
 
         // 텍스트뷰 중에서 연,월,일,시,분, 숫자
         tvYear = findViewById(R.id.tvYear)
@@ -54,16 +56,33 @@ class MainActivity : AppCompatActivity() {
 
         // 처음에는 2개를 안 보이게 설정
         timePicker1.visibility = View.INVISIBLE
-        calendarView1.visibility = View.INVISIBLE
+        datePicker1.visibility = View.INVISIBLE
+        rdoCal.visibility = View.INVISIBLE
+        rdoTime.visibility = View.INVISIBLE
+//        calendarView1.visibility = View.INVISIBLE
 
-        rdoCal.setOnClickListener {
+        fun init() {
+            rdoCal.isChecked = false
+            rdoTime.isChecked = false
+            rdoCal.visibility = View.INVISIBLE
+            rdoTime.visibility = View.INVISIBLE
             timePicker1.visibility = View.INVISIBLE
-            calendarView1.visibility = View.VISIBLE
+            datePicker1.visibility = View.INVISIBLE
         }
+
+        init()
+
+//        rdoCal.setOnClickListener {
+//            timePicker1.visibility = View.INVISIBLE
+//            datePicker1.visibility = View.VISIBLE
+////            calendarView1.visibility = View.VISIBLE
+//        }
+        class Listener
 
         rdoTime.setOnClickListener {
             timePicker1.visibility = View.VISIBLE
-            calendarView1.visibility = View.INVISIBLE
+            datePicker1.visibility = View.INVISIBLE
+//            calendarView1.visibility = View.INVISIBLE
         }
 
         // 타이머 설정
@@ -71,6 +90,8 @@ class MainActivity : AppCompatActivity() {
             chronometer1.base = SystemClock.elapsedRealtime()
             chronometer1.start()
             chronometer1.setTextColor(Color.RED)
+            rdoCal.visibility = View.VISIBLE
+            rdoTime.visibility = View.VISIBLE
         }
 
         // 버튼을 클릭하면 날짜, 시간을 가져온다
@@ -84,13 +105,16 @@ class MainActivity : AppCompatActivity() {
 
             tvHour.text = timePicker1.currentHour.toString()
             tvMinute.text = timePicker1.currentMinute.toString()
+
+            rdoCal.visibility = View.INVISIBLE
+            rdoTime.visibility = View.INVISIBLE
         }
 
-        calendarView1.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            selectYear = year
-            selectMonth = month + 1
-            selectDay = dayOfMonth
-        }
+//        datePicker1.setOnDateChangeListener { view, year, month, dayOfMonth ->
+//            selectYear = year
+//            selectMonth = month + 1
+//            selectDay = dayOfMonth
+//        }
     }
 }
 
