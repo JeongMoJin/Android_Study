@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Jeongmo7/AndroidStudioProjects/a0424project/app/src/main/res/layout/a01_progress_seek.xml" value="0.1111111111111111" />
+        <entry key="..\:/Users/Jeongmo7/AndroidStudioProjects/a0424project/app/src/main/res/layout/a02_scrollview.xml" value="0.1111111111111111" />
+        <entry key="..\:/Users/Jeongmo7/AndroidStudioProjects/a0424project/app/src/main/res/layout/a03_sliding_drawer.xml" value="0.1" />
+        <entry key="..\:/Users/Jeongmo7/AndroidStudioProjects/a0424project/app/src/main/res/layout/a04_viewplifer.xml" value="0.1" />
+        <entry key="..\:/Users/Jeongmo7/AndroidStudioProjects/a0424project/app/src/main/res/layout/a05_viewflipper_practice.xml" value="0.1" />
         <entry key="..\:/Users/Jeongmo7/AndroidStudioProjects/a0424project/app/src/main/res/layout/activity_main.xml" value="0.1111111111111111" />
       </map>
     </option>
