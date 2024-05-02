@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "kr.jeongmo.a0501proejct03"
+        applicationId "kr.jeongmo.a0502_project_02"
         minSdk 26
         targetSdk 29
         versionCode 1
