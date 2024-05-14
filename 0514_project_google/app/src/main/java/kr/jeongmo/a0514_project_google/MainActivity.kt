@@ -1,19 +1,10 @@
-package kr.jeongmo.a0513_project_google
+package kr.jeongmo.a0514_project_google
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.GroundOverlay
-import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -27,25 +18,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapFragment = fragmentManager.findFragmentById(R.id.map) as MapFragment
         mapFragment.getMapAsync(this)
-
-
-
-
-    }
-
-    private fun vectorToBitmap(context: Context, vectorResId: Int): Bitmap? {
-        /* 벡터 이미지를 비트맵으로 변경 */
-        val drawable: Drawable? = ContextCompat.getDrawable(context, vectorResId)
-            ?.let { DrawableCompat.wrap(it).mutate() }
-        drawable?.let {
-            val bitmap =
-                Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            it.setBounds(0, 0, canvas.width, canvas.height)
-            it.draw(canvas)
-            return bitmap
-        }
-        return null
     }
 
     override fun onMapReady(p0: GoogleMap?) {
@@ -53,21 +25,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 //        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
 //        googleMap.moveCamera(CameraUpdateFactory
 //            .newLatLngZoom(LatLng(35.86952722, 128.6061745), 15f))
-        googleMap.uiSettings.isZoomControlsEnabled = true
-        googleMap.setOnMapClickListener { point ->
-            val videoMark = GroundOverlayOptions().image(
-                BitmapDescriptorFactory.fromBitmap(vectorToBitmap(this, R.drawable.icon_camera))
-            )
-                .position(point, 100f, 100f)
-            googleMap.addGroundOverlay(videoMark)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
         menu.add(0, 1, 0, "위성 지도")
         menu.add(0, 2, 0, "일반 지도")
-        menu.add(0, 3, 0, "월드컵경기장 바로가기")
+        val subMenu = menu.addSubMenu("유명장소 바로가기")
+        subMenu.add(0,3,0, "월드컵 경기장")
+        subMenu.add(0,4,0, "두류공원")
+        subMenu.add(0,5,0, "수성못")
         return true
     }
 
@@ -88,10 +55,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
                 return true
             }
+            4 -> {
+                googleMap.moveCamera(
+                    CameraUpdateFactory
+                        .newLatLngZoom(LatLng(35.86952722, 128.6061745), 15f)
+                )
+                return true
+            }
+            5 -> {
+                googleMap.moveCamera(
+                    CameraUpdateFactory
+                        .newLatLngZoom(LatLng(35.86952722, 128.6061745), 15f)
+                )
+                return true
+            }
         }
         return true
     }
-
-
 
 }
