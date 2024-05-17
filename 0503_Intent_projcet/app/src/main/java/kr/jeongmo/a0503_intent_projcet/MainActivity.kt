@@ -3,12 +3,25 @@ package kr.jeongmo.a0503_intent_projcet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
+import android.view.Gravity
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
+    private var toast:Toast? = null
+    private fun toastMsg(string: String){
+        try{
+            toast?.cancel()
+            toast = Toast.makeText(this, string, Toast.LENGTH_SHORT)
+            toast?.setGravity(Gravity.BOTTOM, 0, 0)
+            toast?.show()
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,8 +51,19 @@ class MainActivity : AppCompatActivity() {
         for (i in imageIds.indices) {
             images[i] = findViewById(imageIds[i])
             images[i]!!.setOnClickListener {
-                voteCounts[i]++
-                Toast.makeText(applicationContext, "${imageNames[i]} : 총 ${voteCounts[i]} 표", Toast.LENGTH_SHORT).show()
+                if (voteCounts[i] >= 5) {
+//                    Toast.makeText(applicationContext, "이미 최대 투표수에 도달했습니다.", Toast.LENGTH_SHORT)
+//                        .show()
+                    toastMsg("이미 최대 투표수에 도달했습니다.")
+                } else {
+                    voteCounts[i]++
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "${imageNames[i]} : 총 ${voteCounts[i]} 표",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    toastMsg("${imageNames[i]} : 총 ${voteCounts[i]} 표")
+                }
             }
         }
 
@@ -50,6 +74,8 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("imageNames", imageNames)
             startActivity(intent)
         }
+
+
     }
 }
 

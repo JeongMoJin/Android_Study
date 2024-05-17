@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId "kr.jeongmo.a0503_intent_projcet"
-        minSdk 26
-        targetSdk 34
+        minSdk 24
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
